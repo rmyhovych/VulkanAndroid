@@ -29,6 +29,17 @@ android {
             version "3.10.2"
         }
     }
+    sourceSets {
+        main {
+            jniLibs {
+                srcDir "C:/Users/rmyho/AppData/Local/Android/Sdk/ndk/21.0.6113669/sources/third_party/vulkan/src/build-android/jniLibs"
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {

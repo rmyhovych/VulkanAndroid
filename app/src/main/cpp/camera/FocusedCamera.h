@@ -8,7 +8,7 @@ public:
 		float height = 1,
 		float fovy = glm::pi<float>() / 3,
 		glm::vec3 center = glm::vec3(0),
-		float theta = 1,
+		float theta = 2,
 		float alpha = glm::pi<float>() / 2.0f,
 		float radius = 3
 	);
@@ -23,6 +23,7 @@ private:
 
 private:
 	float m_radius;
+	float m_fovy;
 
 	float m_theta;
 	float m_alpha;

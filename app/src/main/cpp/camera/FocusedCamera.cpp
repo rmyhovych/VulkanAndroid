@@ -15,6 +15,7 @@ FocusedCamera::FocusedCamera(
 	m_theta(theta),
 	m_alpha(alpha),
 	m_center(center),
+	m_fovy(fovy),
 
 	Camera(width, height, fovy, getEye(center, theta, alpha, radius), center)
 {
@@ -38,4 +39,9 @@ const glm::vec3 FocusedCamera::getEye(const glm::vec3& center, float theta, floa
 {
 	glm::vec3 distance = glm::vec3(radius * sinf(theta) * cosf(alpha), radius * cosf(theta), radius * sinf(theta) * sinf(alpha));
 	return center + distance;
+}
+
+void FocusedCamera::setSize(float width, float height)
+{
+	m_projection = glm::perspective(m_fovy, width / height, 0.01f, 1000.0f);
 }

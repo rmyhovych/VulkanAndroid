@@ -28,7 +28,7 @@ public:
 
 	void setCoordinates(const glm::vec3& eye, const glm::vec3& center);
 
-private:
+protected:
 	glm::mat4 m_projection;
 	glm::mat4 m_view;
 };

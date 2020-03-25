@@ -215,6 +215,8 @@ void VulkanMain::destroy()
 	vkDestroyInstance(m_instance, nullptr);
 }
 
+static glm::mat4 mooodel = glm::mat4(1);
+
 void VulkanMain::draw()
 {
 	vkWaitForFences(m_logicalDevice, 1, &m_inFlightFences[m_currentFrameIndex], VK_TRUE, UINT64_MAX);
@@ -242,7 +244,8 @@ void VulkanMain::draw()
 
 	/////////////////////////////////
 	UniformBufferObject ubo = {};
-	ubo.model = glm::mat4(1);
+	mooodel = glm::rotate_slow(mooodel, glm::pi<float>() / 1800, glm::vec3(0, 0, 1));
+	ubo.model = mooodel;
 	ubo.view = m_camera.getView();
 	ubo.projection = m_camera.getProjection();
 	ubo.projection[1][1] *= -1;
@@ -460,6 +463,7 @@ void VulkanMain::createSwapChain()
 {
 	// Swapchain
 	m_swapchainSupportDetails = getSwapChainSupportDetails(m_physicalDevice, m_surface, ANativeWindow_getWidth(m_pApp->window), ANativeWindow_getHeight(m_pApp->window));
+	m_camera.setSize(ANativeWindow_getWidth(m_pApp->window), ANativeWindow_getHeight(m_pApp->window));
 
 	m_swapchain = createSwapchain(VK_NULL_HANDLE, m_swapchainSupportDetails, m_logicalDevice, m_surface, m_queueFamilyIndexes);
 
@@ -1013,8 +1017,6 @@ bool VulkanMain::isDeviceSuitable(VkPhysicalDevice physicalDevice, VkSurfaceKHR 
 
 	if (isPhysicalDeviceSuitable)
 	{
-		SwapChainSupportDetails swapChainDetails = getSwapChainSupportDetails(physicalDevice, m_surface, ANativeWindow_getWidth(m_pApp->window), ANativeWindow_getHeight(m_pApp->window));
-
 		uint32_t nSurfaceFormats = 0;
 		vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surfaceHandle, &nSurfaceFormats, nullptr);
 
